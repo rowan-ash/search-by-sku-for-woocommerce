@@ -3,9 +3,9 @@ Contributors: mattsgarage
 Donate link: http://www.mattyl.co.uk/donate/
 Tags: search, sku, stock keeping unit, woocommerce, ecommerce, e-commerce, commerce, woothemes, wordpress ecommerce
 Requires at least: 3.1.0
-Tested up to: 5.7.2
-Requires PHP: 5.2.4
-Stable tag: 0.8.1
+Tested up to: 7.1
+Requires PHP: 5.6
+Stable tag: 0.8.2
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -31,6 +31,16 @@ See the [Accompanying blog post](http://www.mattyl.co.uk/2012/12/11/woocommerce-
 3. No configuration required :)
 
 == Changelog ==
+= 0.8.2 =
+Fix draft and private products appearing in front end search results when they match a SKU.
+Fix a fatal error on PHP 8 when the search query is passed as an array (s[]=...).
+Fix a trailing comma in the search (EG `WB-12,`) matching every product with a SKU.
+Variations that are disabled no longer surface their parent product in front end search.
+SKU matching escapes LIKE wildcards, so `_` and `%` in a search are matched literally.
+Only the search clause is changed, so other query conditions such as category filters are left alone.
+Declare compatibility with WooCommerce HPOS (High-Performance Order Storage).
+Requires PHP 5.6, in line with the WooCommerce 3.0 minimum.
+Tested with WordPress 7.1 and WooCommerce 11.1.
 = 0.8.1 =
 Update Wordpress compatibility to 5.7.2
 = 0.8.0 =

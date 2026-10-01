@@ -5,14 +5,23 @@
   Plugin URI: http://www.mattyl.co.uk/2012/12/11/woocommerce-plugin-to-search-products-by-sku/
   Description: The search functionality in woocommerce doesn't search by sku by default. This simple plugin adds this functionality to both the admin site and regular search
   Author: Unroll Digital
-  Version: 0.8.0
+  Version: 0.8.2
   Author URI: https://unrolldigital.com/
   Text Domain: search-by-sku-for-woocommerce
   WC requires at least: 3.0.0
-  WC tested up to: 5.5.1
+  WC tested up to: 11.1
  */
 
 if (!defined('ABSPATH')) exit; // Exit if accessed directly
+
+//The plugin does not read or write orders, so it is compatible with HPOS.
+add_action('before_woocommerce_init', 'searchbysku_declare_hpos_compat');
+function searchbysku_declare_hpos_compat()
+{
+  if (class_exists('\\Automattic\\WooCommerce\\Utilities\\FeaturesUtil')) {
+    \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility('custom_order_tables', __FILE__, true);
+  }
+}
 
 //Needs to be after woocommerce has initiated but before posts_search filter has run..
 add_filter('init', 'searchbysku_init', 11);
